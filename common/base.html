@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="{% static 'asset/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="https://kit.fontawesome.com/725d6e18c9.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -76,15 +77,39 @@
                     <span class="self-center text-2xl font-semibold whitespace-nowrap">ClinicSync</span>
                 </a>
                 <div class="flex items-center gap-2 navscreen:order-2">
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}">
-                        <button type="button" <button type="button"
-                            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Profile</button>
-                    </a>
-                    <a href="#">
-                        <button type="button"
-                            class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Logout</button>
-                    </a>
+                    {% if request.user.is_authenticated %}
+                    <div id="tooltip-pic" role="tooltip"
+                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Name: {{user.name}}
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
+
+                    <div class="relative">
+                        <img data-tooltip-target="tooltip-pic" id="avatarButton" type="button"
+                            data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start"
+                            class="w-14 h-14 relative  rounded-full cursor-pointer" src="{{user.profile_picture}}"
+                            alt="User dropdown">
+                        <span
+                            class="top-1 right-0 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white  rounded-full"></span>
+                    </div>
+                    <div id="userDropdown"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                            <div>{{user.user.username}}</div>
+                            <div class="font-medium truncate">{{user.user.email}}</div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+                            <li>
+                                <a href="{% url 'profile' %}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                            </li>
+                        </ul>
+                        <div class="py-1">
+                            <a href="{% url 'logout' %}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                                out</a>
+                        </div>
+                    </div>
                     {% else %}
                     <a href="{% url 'login' %}">
                         <button type="button"
@@ -112,7 +137,7 @@
                     id="navbar-sticky">
                     <ul
                         class="flex flex-col p-4 navscreen:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 text-lg navscreen:flex-row navscreen:space-x-8 navscreen:mt-0 navscreen:border-0 navscreen:bg-transparent ">
-                        {% if user.is_authenticated %}
+                        {% if request.user.is_authenticated %}
                         <li>
                             <a href="{% url 'add_patient' %}"
                                 class="block py-2 pl-3 pr-4 text-gray-800 navscreen:text-white hover:text-blue-700 duration-500 rounded hover:bg-gray-100 navscreen:hover:bg-transparent navscreen:p-0">Add
@@ -128,9 +153,16 @@
                 </div>
             </div>
         </nav>
+        {% if request.user.is_authenticated %}
+        <marquee class="bg-yellow-400 py-2" behavior="scroll" direction="right" scrollamount="10">
+            Please click on your <span class="font-bold text-lg">Profile Picture</span> to access <span
+                class="font-bold text-lg">Profile</span> and <span class="font-bold text-lg">Log Out</span> feature.
+        </marquee>
+        {% endif %}
     </header>
 
     <main class="min-h-screen">
+
         {% block content %}
 
         {% endblock content %}

@@ -9,6 +9,7 @@ Login
     <h1 class="text-[#00C6A9] text-3xl font-bold text-center">Login</h1>
     {% if messages %}
     {% for m in messages %}
+    {% if m.tags == 'error' %}
     <div id="toast-danger"
         class="flex items-center my-4 max-w-lg mx-4 sm:mx-auto  p-4 mb-4 text-gray-500 bg-slate-200 rounded-lg shadow "
         role="alert">
@@ -31,10 +32,10 @@ Login
             </svg>
         </button>
     </div>
-
+    {% endif %}
     {% endfor %}
     {% endif %}
-    <form method="post" class="my-6 w-[90%] md:w-[700px] mx-auto flex flex-col gap-4">
+    <form autocomplete="off" method="post" class="my-6 w-[90%] md:w-[700px] mx-auto flex flex-col gap-4">
         {% csrf_token %}
         <div class="relative z-0 w-full mb-6 group">
             {{ form.username }}

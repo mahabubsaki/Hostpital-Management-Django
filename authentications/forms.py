@@ -3,15 +3,10 @@ from django.contrib.auth.models import User
 from .constants import GENDER_CHOICES,SPECIALTY_CHOICES
 from .models import UserProfile
 
-class LoginForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username','password']
-        widgets= {
-            'username':forms.TextInput(attrs={'class':'block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer','id':'username','placeholder':' '}),
-            'password':forms.PasswordInput(attrs={'class':'block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer','id':'password','placeholder':' '})
-        }
-        
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=150,widget=forms.TextInput(attrs={'class':'block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer','id':'username','placeholder':' '}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer','id':'password','placeholder':' '}))
 
 class RegistrationForm(forms.ModelForm):
     pic = forms.ImageField(widget=forms.FileInput(attrs={'class':'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none','id':'pic'}))
