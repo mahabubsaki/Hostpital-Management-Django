@@ -22,6 +22,17 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        'navscreen': '850px',
+                    },
+                },
+            },
+        }
+    </script>
     <style>
         * {
             font-family: 'Montserrat', sans-serif;
@@ -33,41 +44,61 @@
 <body>
 
     <header class="sticky top-0 z-50">
-        <div class="bg-white flex justify-between px-4 md:justify-center gap-6 py-4">
+        <div class="bg-white flex justify-between px-4 navscreen:justify-center gap-6 py-4">
             <div>
                 <p class="flex items-center gap-2">
-                    <i class="fa fa-phone text-3xl md:text-base cursor-pointer hover:text-black duration-500 text-[#00C6A9]"
+                    <i class="fa fa-phone text-3xl navscreen:text-base cursor-pointer hover:text-black duration-500 text-[#00C6A9]"
                         aria-hidden="true"></i>
-                    <span class="opacity-70 hidden md:block">Call : +8801714269744</span>
+                    <span class="opacity-70 hidden navscreen:block">Call : +8801714269744</span>
                 </p>
             </div>
             <div>
                 <p class="flex items-center gap-2">
-                    <i class="fa fa-solid fa-envelope text-3xl md:text-base cursor-pointer hover:text-black duration-500 text-[#00C6A9]"
+                    <i class="fa fa-solid fa-envelope text-3xl navscreen:text-base cursor-pointer hover:text-black duration-500 text-[#00C6A9]"
                         aria-hidden="true"></i>
-                    <span class="opacity-70 hidden md:block">Email : saki007.ph@gmail.com</span>
+                    <span class="opacity-70 hidden navscreen:block">Email : saki007.ph@gmail.com</span>
                 </p>
             </div>
             <div>
                 <p class="flex items-center gap-2">
-                    <i class="fa fa-solid fa-location-dot text-3xl md:text-base cursor-pointer hover:text-black duration-500 text-[#00C6A9]"
+                    <i class="fa fa-solid fa-location-dot text-3xl navscreen:text-base cursor-pointer hover:text-black duration-500 text-[#00C6A9]"
                         aria-hidden="true"></i>
-                    <span class="opacity-70 hidden md:block">Location : Gazipur,Bangladesh</span>
+                    <span class="opacity-70 hidden navscreen:block">Location : Gazipur,Bangladesh</span>
                 </p>
             </div>
 
         </div>
+
         <nav class="bg-[#00C6A9] w-full py-4 shadow-2xl border-b border-gray-200">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="https://flowbite.com/" class="flex items-center">
+                <a href="{% url 'home' %}" class="flex items-center">
                     <img src="{% static 'asset/logo.png' %}" class="h-8 mr-3" alt="ClinicSync Logo">
                     <span class="self-center text-2xl font-semibold whitespace-nowrap">ClinicSync</span>
                 </a>
-                <div class="flex md:order-2">
-                    <button type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0">Profile</button>
+                <div class="flex items-center gap-2 navscreen:order-2">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}">
+                        <button type="button" <button type="button"
+                            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Profile</button>
+                    </a>
+                    <a href="#">
+                        <button type="button"
+                            class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Logout</button>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'login' %}">
+                        <button type="button"
+                            class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Log
+                            In</button>
+                    </a>
+                    <a href="{% url 'signup' %}">
+                        <button type="button"
+                            class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Sign
+                            Up</button>
+                    </a>
+                    {% endif %}
                     <button data-collapse-toggle="navbar-sticky" type="button"
-                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg navscreen:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                         aria-controls="navbar-sticky" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -77,40 +108,29 @@
                         </svg>
                     </button>
                 </div>
-                <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                <div class="items-center justify-between hidden w-full navscreen:flex navscreen:w-auto navscreen:order-1"
+                    id="navbar-sticky">
                     <ul
-                        class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 text-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent ">
+                        class="flex flex-col p-4 navscreen:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 text-lg navscreen:flex-row navscreen:space-x-8 navscreen:mt-0 navscreen:border-0 navscreen:bg-transparent ">
+                        {% if user.is_authenticated %}
                         <li>
-                            <a href="#"
-                                class="block py-2 pl-3 pr-4 text-gray-800 md:text-white hover:text-blue-700 duration-500 bg-yellow-300 rounded md:bg-transparent  md:p-0 "
-                                aria-current="page">Home</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block py-2 pl-3 pr-4 text-gray-800 md:text-white hover:text-blue-700 duration-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Add
+                            <a href="{% url 'add_patient' %}"
+                                class="block py-2 pl-3 pr-4 text-gray-800 navscreen:text-white hover:text-blue-700 duration-500 rounded hover:bg-gray-100 navscreen:hover:bg-transparent navscreen:p-0">Add
                                 Patient</a>
                         </li>
                         <li>
-                            <a href="#"
-                                class="block py-2 pl-3 pr-4 text-gray-800 md:text-white hover:text-blue-700 duration-500 rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">All
+                            <a href="{% url 'all_patients' %}"
+                                class="block py-2 pl-3 pr-4 text-gray-800 navscreen:text-white hover:text-blue-700 duration-500 rounded hover:bg-gray-100 navscreen:hover:bg-transparent  navscreen:p-0">All
                                 Patients</a>
                         </li>
-                        <li>
-                            <a href="#"
-                                class="block py-2 pl-3 pr-4 text-gray-800 md:text-white hover:text-blue-700 duration-500 rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Login</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block py-2 pl-3 pr-4 text-gray-800 md:text-white hover:text-blue-700 duration-500 rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Sign
-                                Up</a>
-                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main class="min-h-[1000px]">
+    <main class="min-h-screen">
         {% block content %}
 
         {% endblock content %}
@@ -120,8 +140,8 @@
     <footer class="bg-gray-300">
 
         <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-            <div class="md:flex md:justify-between">
-                <div class="mb-6 md:mb-0">
+            <div class="navscreen:flex navscreen:justify-between">
+                <div class="mb-6 navscreen:mb-0">
                     <a href="https://flowbite.com/" class="flex items-center">
                         <img src="{% static 'asset/logo.png' %}" class="h-8 mr-3" alt="FlowBite Logo" />
                         <span class="self-center text-2xl font-semibold whitespace-nowrap">ClinicSync</span>
