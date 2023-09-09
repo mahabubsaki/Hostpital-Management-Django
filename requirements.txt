@@ -1,3 +1,4 @@
+requests==2.31.0
 asgiref==3.7.2
 autopep8==2.0.1
 certifi==2023.7.22
