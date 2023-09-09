@@ -6,7 +6,7 @@ from django.contrib import messages
 from .constants import ISSUE_LIST
 from django.db.models import Q
 
-# Create your views here.
+
 
 def home_page(request):
     current_user = get_current_user(request)
