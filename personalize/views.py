@@ -39,7 +39,6 @@ def update_patient(request,id):
             form = PatientDetailsForm(mutable_query_dict,instance=patient)
             
             if form.is_valid():
-                print('sd')
                 form.save()
                 messages.success(request,"Successfully edited the patient details")
                 return redirect('profile')
