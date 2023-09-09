@@ -10,7 +10,6 @@ from .utils import upload_image_to_imgbb
 def auth_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        print(form)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -48,6 +47,7 @@ def auth_signup(request):
                 profile.profile_picture = img_link
                 profile.save()
                 login(request, user)
+                messages.success(request,"Successfully Registered")
                 return redirect('home') 
             else:
                 messages.error(request,"Error uploading image on Imgbb, Please try again or change the file")

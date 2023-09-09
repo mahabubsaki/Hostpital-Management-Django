@@ -21,10 +21,10 @@ def upload_image_to_imgbb(image_file):
 def get_current_user(request):
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user.username)
-        user_profile = UserProfile.objects.get(user=user)
-        return user_profile
-    else:
-        return None
+        if user:
+            user_profile = UserProfile.objects.get(user=user)
+            return user_profile
+    return None
     
     
     

@@ -9,6 +9,6 @@ class PatientDetails(models.Model):
     age = models.IntegerField()
     address = models.TextField()
     issue = models.CharField(choices=ISSUE_CHOICES,max_length=30)
-    appointment_date = models.DateTimeField()
+    appointment_date = models.DateField()
     def __str__(self) -> str:
         return self.name
