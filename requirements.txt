@@ -24,7 +24,7 @@ pyperclip==1.8.2
 PyRect==0.2.0
 pyscreenshot==3.1
 PyScreeze==0.1.29
-python-dotenv==1.0.0
+python-dotenv==0.21.1
 pytweening==1.0.7
 pytz==2023.3.post1
 requests==2.31.0
