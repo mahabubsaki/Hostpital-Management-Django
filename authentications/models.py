@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from .constants import GENDER_CHOICES,SPECIALTY_CHOICES
+from .constants import GENDER_CHOICES, SPECIALTY_CHOICES
 
 
 class UserProfile(models.Model):

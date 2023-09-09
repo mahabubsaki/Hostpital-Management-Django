@@ -5,6 +5,7 @@ from .models import UserProfile,PatientDetails
 from django.contrib import messages
 from .constants import ISSUE_LIST
 from django.db.models import Q
+from datetime import datetime
 
 
 
@@ -15,7 +16,12 @@ def add_patient(request):
     if request.user.is_authenticated:
         current_user = get_current_user(request)
         if request.method == 'POST':
-            form = PatientDetailsForm(request.POST)
+            mutable_query_dict = request.POST.copy()
+            date_string = request.POST.get('appointment_date')
+            date_object = datetime.strptime(date_string, '%Y/%m/%d')
+            formatted_date = date_object.strftime('%Y-%m-%d')
+            mutable_query_dict['appointment_date'] = formatted_date
+            form = PatientDetailsForm(mutable_query_dict)
             if form.is_valid():
                 patient_details = form.save(commit=False) 
                 doctor_profile = UserProfile.objects.get(user=request.user)

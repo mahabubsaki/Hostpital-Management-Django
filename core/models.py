@@ -1,5 +1,6 @@
 from django.db import models
 from authentications.models import UserProfile
+
 from .constants import ISSUE_CHOICES
 
 # Create your models here.
